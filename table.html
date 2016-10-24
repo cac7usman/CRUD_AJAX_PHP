@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Table</title>
+</head>
+<body>
+    <table  border="2">
+        <thead><tr><th>ID</th><th>FName</th><th>LName</th><th>Age</th></tr></thead>
+        <tbody id = "_table">
+
+        </tbody>
+    </table>
+    <br>
+    <p>
+
+    <table>
+    <tr>
+        <td><input type="text" id="_id" size="2"></td>
+        <td><input type="text" id="_fname"></td>
+        <td><input type="text" id="_lname"></td>
+        <td> <input type="text" id="_age"></td>
+    </tr>
+    </table>
+        <button value = "C" onclick="C(this)">C</button>
+        <button value = "R" onclick="R(this)">R</button>
+        <button value = "U" onclick="U(this)">U</button>
+        <button value = "D" onclick="D(this)">D</button>
+
+<script>
+
+    function C(e)
+    {
+        _sqlRequest(e.value, _id.value, _fname.value, _lname.value, _age.value );
+    }
+
+        function R(e)
+    {
+        _table.innerHTML = _sqlRequest(e.value);
+
+    }
+    function U(e)
+    {
+        _sqlRequest(e.value, _id.value, _fname.value, _lname.value, _age.value );
+    }
+    function D(e)
+    {
+        _sqlRequest(e.value, _id.value);
+    }
+
+    function _sqlRequest(cmd, i, f, l, a)
+    {
+        var prm = "cmd="+cmd+"&_id=" + i + "&_fname=" + f + "&_lname=" + l + "&_age=" + a;
+
+
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 1 && xhr.status == 200) {
+                return xhr.responseText;
+            }
+        }
+
+        xhr.open('POST', 'db_my.php?', false);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(prm);
+
+
+        return xhr.responseText;
+    }
+</script>
+
+
+</body>
+</html>
